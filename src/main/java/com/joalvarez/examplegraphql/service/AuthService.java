@@ -6,6 +6,7 @@ import com.joalvarez.examplegraphql.data.dto.generals.TokenResponseDTO;
 import com.joalvarez.examplegraphql.data.dto.generals.UserLoginDTO;
 import com.joalvarez.examplegraphql.data.model.User;
 import com.joalvarez.examplegraphql.exception.generals.AuthException;
+import com.joalvarez.examplegraphql.service.interfaces.IUserService;
 import com.joalvarez.examplegraphql.utils.Utils;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
+import java.util.*;
 
 import static com.joalvarez.examplegraphql.config.security.jwt.JwtConstants.*;
 
@@ -23,9 +24,11 @@ import static com.joalvarez.examplegraphql.config.security.jwt.JwtConstants.*;
 public class AuthService {
 
 	private final AuthenticationManager authenticationManager;
+	private final IUserService<UserDTO> userService;
 
-	public AuthService(AuthenticationManager authenticationManager) {
+	public AuthService(AuthenticationManager authenticationManager, IUserService<UserDTO> userService) {
 		this.authenticationManager = authenticationManager;
+		this.userService = userService;
 	}
 
 	public TokenResponseDTO login(UserLoginDTO dto) {
@@ -63,6 +66,6 @@ public class AuthService {
 	}
 
 	public UserDTO register(UserDTO userDTO) {
-		return new UserDTO();
+		return this.userService.register(userDTO);
 	}
 }

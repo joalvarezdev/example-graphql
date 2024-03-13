@@ -74,7 +74,6 @@ public class UserService extends GenericService<UserDAO, UserMapper> implements 
 		userSaved.setAdmin(userDTO.isAdmin());
 
 		return userSaved;
-
 	}
 
 }
