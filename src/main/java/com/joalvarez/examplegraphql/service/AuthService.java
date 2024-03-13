@@ -33,7 +33,7 @@ public class AuthService {
 
 	public TokenResponseDTO login(UserLoginDTO dto) {
 		var authenticationToken = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
-		Authentication authResult = null;
+		Authentication authResult;
 
 		try {
 			authResult = this.authenticationManager.authenticate(authenticationToken);
